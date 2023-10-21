@@ -190,7 +190,9 @@ export class Seaport {
   ): Promise<OrderUseCase<CreateOrderAction>> {
     console.log("seaport call createOrder");
     const signer = this._getSigner(accountAddress);
+    console.log("seaport call this._getSigner");
     const offerer = accountAddress ?? (await signer.getAddress());
+    console.log("seaport call signer.getAddress");
 
     const { orderComponents, approvalActions } = await this._formatOrder(
       signer,
@@ -198,15 +200,18 @@ export class Seaport {
       Boolean(exactApproval),
       input,
     );
+    console.log("seaport call this._formatOrder");
 
     const createOrderAction = {
       type: "create",
       getMessageToSign: () => {
-        return this._getMessageToSign(orderComponents);
+        const result = this._getMessageToSign(orderComponents);
+        console.log("seaport call this._getMessageToSign");
+        return result;
       },
       createOrder: async () => {
         const signature = await this.signOrder(orderComponents, offerer);
-
+        console.log("seaport call this.signOrder");
         return {
           parameters: orderComponents,
           signature,
