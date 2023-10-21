@@ -15,6 +15,8 @@ export const executeAllActions = async <
 >(
   actions: OrderUseCase<T>["actions"],
 ) => {
+  console.log("seaport call createOrder.executeAllActions");
+
   for (let i = 0; i < actions.length - 1; i++) {
     const action = actions[i];
     if (action.type === "approval") {

@@ -188,6 +188,7 @@ export class Seaport {
     accountAddress?: string,
     exactApproval?: boolean,
   ): Promise<OrderUseCase<CreateOrderAction>> {
+    console.log("seaport call createOrder");
     const signer = this._getSigner(accountAddress);
     const offerer = accountAddress ?? (await signer.getAddress());
 
