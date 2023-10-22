@@ -20,6 +20,7 @@ export const executeAllActions = async <
   for (let i = 0; i < actions.length - 1; i++) {
     const action = actions[i];
     if (action.type === "approval") {
+      console.log("seaport call action.transactionMethods.transact");
       const tx = await action.transactionMethods.transact();
       await tx.wait();
     }
@@ -27,12 +28,16 @@ export const executeAllActions = async <
 
   const finalAction = actions[actions.length - 1] as T;
 
+  console.log("seaport finalAction");
   switch (finalAction.type) {
     case "create":
+      console.log("seaport finalAction.createOrder");
       return finalAction.createOrder();
     case "createBulk":
+      console.log("seaport finalAction.createBulkOrders");
       return finalAction.createBulkOrders();
     default:
+      console.log("seaport default finalAction.transactionMethods.transact");
       return finalAction.transactionMethods.transact();
   }
 };
